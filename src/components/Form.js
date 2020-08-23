@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
+import { countYears, brandPrice, planPrice } from "../helper";
 
 const Field = styled.div`
   display: flex;
@@ -41,12 +42,23 @@ const Button = styled.button`
   }
 `;
 
+const Error = styled.div`
+  background-color: red;
+  color: white;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1rem;
+`;
+
 const Form = () => {
   const [datos, saveDatos] = useState({
     brand: "",
     year: "",
     plan: "",
   });
+
+  const [error, handleError] = useState(false);
 
   const { brand, year, plan } = datos;
 
@@ -57,8 +69,31 @@ const Form = () => {
     });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (brand.trim() === "" || year.trim() === "" || plan.trim() === "") {
+      handleError(true);
+      return;
+    }
+    handleError(false);
+
+    let basePrice = 2000;
+
+    const differenceYear = countYears(year);
+
+    basePrice -= (differenceYear * 3 * basePrice) / 100;
+
+    basePrice *= brandPrice(brand);
+
+    basePrice = parseFloat(basePrice * planPrice(plan)).toFixed(2);
+
+    console.log(basePrice);
+  };
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
+      {error ? <Error>Todos los campos son obligatorios</Error> : null}
       <Field>
         <Label htmlFor="brands">Marca</Label>
         <Select id="brands" name="brand" value={brand} onChange={getInfo}>
@@ -105,7 +140,7 @@ const Form = () => {
         />
         Completo
       </Field>
-      <Button type="button">Cotizar</Button>
+      <Button type="submit">Cotizar</Button>
     </form>
   );
 };
