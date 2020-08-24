@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Deployment on Netlify
+
+You can visit the build version of project at [Insurance Quote](https://react-insurance-quote.netlify.app/).
 
 ## Available Scripts
 
