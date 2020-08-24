@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { countYears, brandPrice, planPrice } from "../helper";
+import PropTypes from "prop-types";
 
 const Field = styled.div`
   display: flex;
@@ -94,7 +95,7 @@ const Form = ({ saveResumen, saveCargando }) => {
       saveCargando(false);
 
       saveResumen({
-        finalPrice: basePrice,
+        finalPrice: Number(basePrice),
         datos,
       });
     }, 600);
@@ -152,6 +153,11 @@ const Form = ({ saveResumen, saveCargando }) => {
       <Button type="submit">Cotizar</Button>
     </form>
   );
+};
+
+Form.propTypes = {
+  saveResumen: PropTypes.func.isRequired,
+  saveCargando: PropTypes.func.isRequired,
 };
 
 export default Form;

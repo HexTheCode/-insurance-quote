@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { upperCase } from "../helper";
+import PropTypes from "prop-types";
 
 const Container = styled.div`
   padding: 1rem;
@@ -25,6 +26,10 @@ const Resumen = ({ datos }) => {
       </ul>
     </Container>
   );
+};
+
+Resumen.propTypes = {
+  datos: PropTypes.object.isRequired,
 };
 
 export default Resumen;
