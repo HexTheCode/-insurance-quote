@@ -34,3 +34,7 @@ export function planPrice(plan) {
 
   return increase;
 }
+
+export function upperCase(text) {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}

@@ -51,7 +51,7 @@ const Error = styled.div`
   padding: 1rem;
 `;
 
-const Form = () => {
+const Form = ({ saveResumen, saveCargando }) => {
   const [datos, saveDatos] = useState({
     brand: "",
     year: "",
@@ -88,7 +88,16 @@ const Form = () => {
 
     basePrice = parseFloat(basePrice * planPrice(plan)).toFixed(2);
 
-    console.log(basePrice);
+    saveCargando(true);
+
+    setTimeout(() => {
+      saveCargando(false);
+
+      saveResumen({
+        finalPrice: basePrice,
+        datos,
+      });
+    }, 600);
   };
 
   return (
